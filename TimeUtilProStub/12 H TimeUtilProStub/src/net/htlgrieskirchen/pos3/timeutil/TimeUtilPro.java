@@ -7,6 +7,7 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 public class TimeUtilPro {
@@ -79,7 +80,6 @@ public class TimeUtilPro {
         int day = dateTime.get(Calendar.DAY_OF_MONTH);
         int hour = dateTime.get(Calendar.HOUR_OF_DAY);//in 24 studen -> ohne of_day in 12 stunden
         int minute = dateTime.get(Calendar.MINUTE);
-
         LocalDateTime ldt = LocalDateTime.of(year, month, day, hour, minute);
 
         return ldt;
@@ -87,40 +87,131 @@ public class TimeUtilPro {
 
     // ########## INT METHODS ##########
     public static int localDateToInt(LocalDate date) {
-        return -1;
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+        String m = null;
+        String d = null;
+        if (month < 10) {
+            m = new String(0 + String.valueOf(month));
+        } else {
+            m = String.valueOf(month);
+        }
+        if (day < 10) {
+            d = new String(0 + String.valueOf(day));
+        } else {
+            d = String.valueOf(day);
+        }
+        String s = String.valueOf(year) + m + d;
+
+        return Integer.parseInt(s);
     }
 
     public static int localDateTimeToInt(LocalDateTime dateTime) {
-        return -1;
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthValue();
+        int day = dateTime.getDayOfMonth();
+        String m = null;
+        String d = null;
+        if (month < 10) {
+            m = new String(0 + String.valueOf(month));
+        } else {
+            m = String.valueOf(month);
+        }
+        if (day < 10) {
+            d = new String(0 + String.valueOf(day));
+        } else {
+            d = String.valueOf(day);
+        }
+        String s = String.valueOf(year) + m + d;
+        return Integer.parseInt(s);
     }
 
     // ########## LONG METHODS ##########
     public static long localDateToLong(LocalDate date) {
-        return -1L;
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+        String m = null;
+        String d = null;
+        if (month < 10) {
+            m = new String(0 + String.valueOf(month));
+        } else {
+            m = String.valueOf(month);
+        }
+        if (day < 10) {
+            d = new String(0 + String.valueOf(day));
+        } else {
+            d = String.valueOf(day);
+        }
+        String s = String.valueOf(year) + m + d + "0000";
+        return Long.parseLong(s);
     }
 
     public static long localDateTimeToLong(LocalDateTime dateTime) {
-        return -1L;
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthValue();
+        int day = dateTime.getDayOfMonth();
+        int hour = dateTime.getHour();
+        int minute = dateTime.getMinute();
+        String m = null;
+        String d = null;
+        String h = null;
+        String min = null;
+        if (month < 10) {
+            m = new String(0 + String.valueOf(month));
+        } else {
+            m = String.valueOf(month);
+        }
+        if (day < 10) {
+            d = new String(0 + String.valueOf(day));
+        } else {
+            d = String.valueOf(day);
+        }
+        if (hour < 10) {
+            h = new String(0 + String.valueOf(hour));
+        } else {
+            h = String.valueOf(hour);
+        }
+        if (minute < 10) {
+            min = new String(0 + String.valueOf(minute));
+        } else {
+            min = String.valueOf(minute);
+        }
+        String s = year + m + d + h + min;
+        return Long.parseLong(s);
     }
 
     // ########## DATE METHODS ##########
     @SuppressWarnings("deprecation")
     public static Date localDateToDate(LocalDate date) {
-        return null;
+        Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return d;
     }
 
     @SuppressWarnings("deprecation")
     public static Date localDateTimeToDate(LocalDateTime dateTime) {
-        return null;
+        Date d = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return d;
     }
 
     // ########## CALENDAR METHODS ##########
     public static Calendar localDateToCalendar(LocalDate date) {
-        return null;
+
+        GregorianCalendar c = (GregorianCalendar) new GregorianCalendar.Builder()
+                .setDate(date.getYear(), date.getMonthValue(), date.getDayOfMonth())
+                .build();
+
+        return c;
     }
 
     public static Calendar localDateTimeToCalendar(LocalDateTime dateTime) {
-        return null;
+        GregorianCalendar c = (GregorianCalendar) new GregorianCalendar.Builder()
+                .setDate(dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth())
+                .setTimeOfDay(dateTime.getHour(), dateTime.getMinute(), 0)
+                .build();
+        //Calendar c = new GregorianCalendar(dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfYear(), dateTime.getHour(), dateTime.getMinute());
+        return c;
     }
 
 }

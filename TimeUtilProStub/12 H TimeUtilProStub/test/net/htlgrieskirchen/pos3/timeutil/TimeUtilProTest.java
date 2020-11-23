@@ -140,12 +140,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToInt() {
         System.out.println("localDateToInt");
-        LocalDate date = null;
-        int expResult = 0;
+        LocalDate date = LocalDate.of(2003, 02, 01);
+        int expResult = 20030201;
         int result = TimeUtilPro.localDateToInt(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -154,12 +153,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToInt() {
         System.out.println("localDateTimeToInt");
-        LocalDateTime dateTime = null;
-        int expResult = 0;
+        LocalDateTime dateTime = LocalDateTime.of(2003, 02, 01, 12, 34);
+        int expResult = 20030201;
         int result = TimeUtilPro.localDateTimeToInt(dateTime);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -168,12 +166,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToLong() {
         System.out.println("localDateToLong");
-        LocalDate date = null;
-        long expResult = 0L;
+        LocalDate date = LocalDate.of(2003, 02, 01);
+        long expResult = 200302010000L;
         long result = TimeUtilPro.localDateToLong(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -182,12 +179,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToLong() {
         System.out.println("localDateTimeToLong");
-        LocalDateTime dateTime = null;
-        long expResult = 0L;
+        LocalDateTime dateTime = LocalDateTime.of(2003, 02, 01, 12, 34);
+        long expResult = 200302011234L;
         long result = TimeUtilPro.localDateTimeToLong(dateTime);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -196,12 +192,10 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToDate() {
         System.out.println("localDateToDate");
-        LocalDate date = null;
-        Date expResult = null;
+        LocalDate date = LocalDate.of(2003, 02, 01);
+        Date expResult = new Date(103, 01, 01);
         Date result = TimeUtilPro.localDateToDate(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -210,12 +204,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToDate() {
         System.out.println("localDateTimeToDate");
-        LocalDateTime dateTime = null;
-        Date expResult = null;
+        LocalDateTime dateTime = LocalDateTime.of(2003, 02, 01, 00, 00);
+        Date expResult = new Date(103, 01, 01);
         Date result = TimeUtilPro.localDateTimeToDate(dateTime);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -224,12 +217,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateToCalendar() {
         System.out.println("localDateToCalendar");
-        LocalDate date = null;
-        Calendar expResult = null;
+        LocalDate date = LocalDate.of(2003, 02, 01);
+        Calendar expResult = new GregorianCalendar(2003, 02, 01);
         Calendar result = TimeUtilPro.localDateToCalendar(date);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -238,12 +230,11 @@ public class TimeUtilProTest {
     @Test
     public void testLocalDateTimeToCalendar() {
         System.out.println("localDateTimeToCalendar");
-        LocalDateTime dateTime = null;
-        Calendar expResult = null;
+        LocalDateTime dateTime = LocalDateTime.of(2003, 02, 01, 12, 34);
+        Calendar expResult = new GregorianCalendar(2003, 02, 01, 12, 34);
         Calendar result = TimeUtilPro.localDateTimeToCalendar(dateTime);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
 }
