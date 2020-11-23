@@ -65,8 +65,8 @@ public class TimeUtilProTest {
     @Test
     public void testDateToLocalDate() {
         System.out.println("dateToLocalDate");
-        Date dateTime = new Date(2003, 02, 01);
-        LocalDate expResult = LocalDate.of(2003, 02, 01);
+        Date dateTime = new Date(103, 01, 01);
+        LocalDate expResult = LocalDate.parse("2003-02-01");
         LocalDate result = TimeUtilPro.dateToLocalDate(dateTime);
         assertEquals(expResult, result);
 
