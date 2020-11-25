@@ -5,10 +5,20 @@
  */
 package net.htlgrieskirchen.pos3.blockchain.mining;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.htlgrieskirchen.pos3.blockchain.chain.Block;
+import net.htlgrieskirchen.pos3.blockchain.chain.MiningBlock;
+import static net.htlgrieskirchen.pos3.blockchain.mining.Miner.BLOCKCHAIN;
+
 public class MyMiner extends Miner {
 
-    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         long start = System.currentTimeMillis();
 
         /**
@@ -22,10 +32,9 @@ public class MyMiner extends Miner {
          * exemplarisch, welche Funktionen mit der hier implementierten
          * Blockchain umgesetzt werden können.
          */
-        
         /**
          * Beschreibung Mining:
-         * 
+         *
          * In der Klasse Miner wird jeder BLOCKCHAIN zu Beginn ein Root-Block
          * hinzugefügt. In den erbenden Klassen (MinerSerial, MinderParallel)
          * werden nacheinander MiningBlocks instanziiert, welche, um gültig zu
@@ -38,7 +47,6 @@ public class MyMiner extends Miner {
          * MiningBlock ist berechnet. Er liefert dann die durch das Mining
          * erhaltenen Coins durch den Aufruf der getCoins()-Methode zurück.
          */
-        
         /**
          * Aufgabe 2
          *
@@ -51,7 +59,6 @@ public class MyMiner extends Miner {
          * MinerParallel in diesem Package, welche bereits klassische Threads zu
          * Parallelisierung einsetzt.
          */
-        
         /**
          * Aufgabe 3
          *
@@ -59,9 +66,41 @@ public class MyMiner extends Miner {
          * der der Klasse MinerParallel entsprechen. Experimentiert mit der
          * Threadanzahl, bis ihr die schnellste Variante gefunden habt.
          */
+        final int NUMBER_OF_COINS = 100;
+        int NumberOfThreads = 8;
+        ExecutorService executer;
+
+        int value = Integer.MAX_VALUE / NumberOfThreads;
+        Worker[] tasks = new Worker[NumberOfThreads];
+        int startPoint = 0;
+
+        for (int i = 0; i < NumberOfThreads; ++i) {
+            tasks[i] = new Worker(startPoint, startPoint + value);
+            startPoint += value;
+
+        }
+
+        for (int i = 0; i < NUMBER_OF_COINS; i++) {
+            executer = Executors.newFixedThreadPool(NumberOfThreads);
+            for (int j = 0; j < tasks.length; ++j) {
+                tasks[j].setBlock(new MiningBlock(BLOCKCHAIN.get(i)));
+            }
+
+            for (int j = 0; j < tasks.length; ++j) {
+                executer.execute(tasks[j]);
+            }
+
+            executer.awaitTermination(100, TimeUnit.MILLISECONDS);
+
+            executer.shutdown();
+            long temp = System.currentTimeMillis();
+            System.out.println(DF.format(1000.0 * i / (temp - start)) + " coins/s");
+            BLOCKCHAIN.add(Worker.getMinedBlock());
+
+        }
 
         long end = System.currentTimeMillis();
         checkBlockchain();
-        System.out.println("\n" + getCoins() + " coins mined in " + DF.format((end - start)/1000.0) + " s");
+        System.out.println("\n" + getCoins() + " coins mined in " + DF.format((end - start) / 1000.0) + " s");
     }
 }
