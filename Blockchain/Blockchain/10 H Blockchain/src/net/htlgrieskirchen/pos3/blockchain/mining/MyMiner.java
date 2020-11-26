@@ -7,6 +7,7 @@ package net.htlgrieskirchen.pos3.blockchain.mining;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -87,10 +88,10 @@ public class MyMiner extends Miner {
             }
 
             for (int j = 0; j < tasks.length; ++j) {
-                executer.execute(tasks[j]);
+                executer.submit(tasks[j]);
             }
 
-            executer.awaitTermination(100, TimeUnit.MILLISECONDS);
+            executer.awaitTermination(1000, TimeUnit.MILLISECONDS);
 
             executer.shutdown();
             long temp = System.currentTimeMillis();
